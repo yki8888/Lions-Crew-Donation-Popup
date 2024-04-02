@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+  body{font-size:16px; font-family: pretendard; font-weight: 700;}
+  p{margin: 0;}
+  .bg_pop{display: flex; flex-direction: column; align-items: center; justify-content: space-evenly; width: 420px; height: 190px; background-color: rgb(0, 0, 0, 1); border-radius: 10px;}
+  .rss_mibi{display: flex; justify-content: center; align-items: center; width: 47px; height: 47px; background-color: #363232; border-radius: 999px;}
+  .box_dona{display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%;}
+  .decs_dona{display: flex;}
+  .font_dona{font-size:22px; font-family: pretendard; font-weight: 700;}
+  .font_sky{color: #00FFFF;}
+  .font_purple{color: #738DFF;}
+  .font_orange{color: #F5650C;}
+  .font_white{color: #fff;}
+  #sp_amount{border: none; outline: none; padding: 0; margin: 0; background: transparent;}
+</style>
+</head>
+
+<body>
+<!-- 블러 없는 알파 50% 팝업 -->    
+<div class="bg_pop">
+	<div class="rss_mibi">
+		<img src="./rss_mini.png" alt="라살라스 후원">
+	</div>
+	<div class="box_dona">
+		<div class="decs_dona"><p class="font_orange font_dona">라이언스크루0000</p>&nbsp<p class="font_white font_dona">님이</p></div>
+		<div class="decs_dona"><p id="sp_amount" class="font_orange font_dona">10000000</p>&nbsp;<p class="font_orange font_dona">RP</p>&nbsp;<p class="font_white font_dona">를 후원하셨습니다.</p></div>
+	</div>
+  <div class="decs_dona"><p class="font_white font_dona">가나다라마바사아자차카타파하가나다라마바</p></div>	
+</div>
+<!-- // 블러 없는 알파 50% 팝업 -->
+<!-- 팝업 노출 시 자동재생 오디오 태그 -->  
+  <audio id="voice_lions" autoplay muted><source type="audio/mp3"></audio>
+<!-- //  팝업 노출 시 자동재생 오디오 태그 -->  
+</body>
+<script type="text/javascript">
+// #sp_amount 값에 따라서 오디오가 바뀜
+  document.addEventListener("DOMContentLoaded", function() {
+      const audio = document.getElementById("voice_lions");
+      const spAmount = document.getElementById("sp_amount");
+
+      function formatAmountWithCommas() {
+          let amount = parseInt(spAmount.textContent.replace(/,/g, ''));
+          if (!isNaN(amount)) {
+              spAmount.textContent = amount.toLocaleString();
+          }
+      }
+      formatAmountWithCommas();
+  });
+</script>
+</html>
