@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+	@keyframes slide {
+  0% {
+    left: -100px;
+    top: 0;
+  }
+  100% {
+    left: 530px;
+    top: 0;
+  }
+}
+@property --gradient-angle {
+	inherits: false;
+	initial-value: 0deg;
+	syntax: "<angle>";
+}
+@keyframes spin {
+	to {
+		--gradient-angle: 360deg;
+	}
+}
+  body{font-size:16px; font-family: pretendard; font-weight: 700;}
+  p{margin: 0;}
+  .bg_pop{display: flex; flex-direction: column; align-items: center; justify-content: space-evenly; position: relative; height: 100%; background-color: rgb(0, 0, 0, 1); border-radius: 10px; overflow: hidden;}
+	:root {
+		--black: oklch(97.25% 0.015 94.2);
+	--purple: oklch(90.35% 0.11 97.36);
+	--orange: oklch(99.01% 0.016 95.22);
+	--yellow: oklch(59.61% 0.118 74.57);
+	--blue: oklch(60.47% 0.125 87.48);
+	--blue: oklch(97.25% 0.015 94.2);
+	--black-alpha-50: color-mix(in oklch, var(--black), transparent);
+}
+body {margin: 0;}
+section {background: black; display: grid; place-content: center;}
+.section_pop {width: 420px; height: 190px; animation: spin 1s linear infinite; background: linear-gradient(to bottom, var(--black), var(--black)) padding-box,
+		conic-gradient(
+				in oklch from var(--gradient-angle),
+				var(--purple),
+				var(--orange),
+				var(--yellow),
+				var(--blue),
+				var(--purple)
+			) border-box;
+	border: 6px solid transparent; border-radius: 10px; position: relative; z-index: 10; }
+	.section_pop::before {background: black; border-radius: 2px; content: ""; position: absolute; inset: 0; z-index: 5;}
+	.section_pop::after {animation: spin 2s linear infinite;
+		background: conic-gradient(
+			in oklch from var(--gradient-angle),
+			var(--purple),
+			var(--orange),
+			var(--yellow),
+			var(--blue),
+			var(--purple)
+		);
+		border-radius: 5px; outline: 1px solid rgba(255, 255, 255, .5); outline-offset: -10px; content: ""; position: absolute; inset: 0; z-index: 1;}
+
+	.rss_wrap, .box_dona, .decs_dona{z-index: 999;}
+  
+  .rss_wrap{position: relative; width: 100px; height: 60px; display: flex; align-items: center; justify-content: center;}
+  .rss_mibi{display: flex; justify-content: center; align-items: center; position: absolute; width: 47px; height: 47px; background: linear-gradient(-50deg, rgba(232,215,159,1) 0%, rgba(252,247,223,1) 19%, rgba(252,247,223,1) 38%, rgba(231,208,115,1) 59%, rgba(209,170,70,1) 82%, rgba(237,220,162,1) 100%); border-radius: 999px; z-index: 1;}
+  .fireworks{position: relative; width: 140px; height: 140px;}
+  .box_dona{display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%;}
+  .decs_dona{display: flex;}
+  .font_dona{font-size:22px; font-family: pretendard; font-weight: 700;}
+  .font_sky{color: #00FFFF;}
+  .font_purple{color: #738DFF;}
+  .font_orange{color: #F5650C;}
+  .font_white{color: #fff;}
+  #sp_amount{border: none; outline: none; padding: 0; margin: 0; background: transparent;}
+</style>
+</head>
+
+<body>
+<!-- 블러 없는 알파 50% 팝업 -->    
+<div class="section_pop">
+	<div class="bg_pop">
+		<div class="rss_wrap">
+			<div class="rss_mibi">
+				<img src="./rss_mini.png" alt="라살라스 후원">
+			</div>
+			<img class="fireworks" src="" alt="라살라스 후원 감사핣니다">
+		</div>
+
+		<div class="box_dona">
+			<div class="decs_dona"><p class="font_orange font_dona">라이언스크루0000</p>&nbsp<p class="font_white font_dona">님이</p></div>
+			<div class="decs_dona"><p id="sp_amount" class="font_orange font_dona">1000</p>&nbsp;<p class="font_orange font_dona">RP</p>&nbsp;<p class="font_white font_dona">를 후원하셨습니다.</p></div>
+		</div>
+		<div class="decs_dona"><p class="font_white font_dona">가나다라마바사아자차카타파하가나다라마바</p></div>	
+	</div>
+</div>
+<!-- // 블러 없는 알파 50% 팝업 -->
+<!-- 팝업 노출 시 자동재생 오디오 태그 -->  
+  <audio id="voice_lions" autoplay muted><source type="audio/mp3"></audio>
+<!-- //  팝업 노출 시 자동재생 오디오 태그 -->  
+</body>
+<script type="text/javascript">
+// #sp_amount 값에 따라서 오디오가 바뀜
+	document.addEventListener("DOMContentLoaded", function() {
+			const audio = document.getElementById("voice_lions");
+			const spAmount = document.getElementById("sp_amount");
+			const fireworksImg = document.querySelector(".fireworks");
+			// 스타일을 변경할 엘리먼트 선택
+			const sectionPop = document.querySelector(".section_pop");
+			const rssMibi = document.querySelector(".rss_mibi");
+
+			function formatAmountWithCommas() {
+					let amount = parseInt(spAmount.textContent.replace(/,/g, ''));
+					if (!isNaN(amount)) {
+							spAmount.textContent = amount.toLocaleString();
+					}
+			}
+
+			function updateAudioSource() {
+					const amount = parseInt(spAmount.textContent.replace(/,/g, ''), 10);
+					if (amount >= 1000) {
+							audio.src = "./lion_gold.mp3";
+							fireworksImg.src = "./fireworks_gold.gif";
+					} else {
+						// 1000 미만일 경우 스타일 변경
+							audio.src = "./lion_silver.mp3";
+							fireworksImg.src = "./fireworks_silver.gif";
+							if(fireworksImg) fireworksImg.style.display = "none";
+							if(sectionPop) sectionPop.style.background = "none";
+							if(rssMibi) rssMibi.style.background = "#363232";
+					}
+					audio.muted = false;
+					audio.play().catch(error => console.error("오디오 재생 실패", error));
+			}
+			formatAmountWithCommas();
+			updateAudioSource();
+	});
+</script>
+</html>

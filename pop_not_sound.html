@@ -41,6 +41,7 @@
   document.addEventListener("DOMContentLoaded", function() {
       const audio = document.getElementById("voice_lions");
       const spAmount = document.getElementById("sp_amount");
+      const fireworksImg = document.querySelector(".fireworks");
 
       function formatAmountWithCommas() {
           let amount = parseInt(spAmount.textContent.replace(/,/g, ''));
@@ -48,7 +49,19 @@
               spAmount.textContent = amount.toLocaleString();
           }
       }
+
+      function updateAudioSource() {
+          const amount = parseInt(spAmount.textContent.replace(/,/g, ''), 10);
+          if (amount >= 1000) {
+              fireworksImg.src = "./fireworks_gold.gif";
+          } else {
+              fireworksImg.src = "./fireworks_silver.gif";
+          }
+          audio.muted = false;
+          audio.play().catch(error => console.error("오디오 재생 실패", error)); //지우셔도 됩니다 로컬 확인용 입니다
+      }
       formatAmountWithCommas();
+      updateAudioSource();
   });
 </script>
 </html>

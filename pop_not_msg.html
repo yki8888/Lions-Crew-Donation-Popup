@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+  body{font-size:16px; font-family: pretendard; font-weight: 700;}
+  p{margin: 0;}
+  .bg_pop{display: flex; align-items: center; justify-content: space-evenly; width: 625px; height: 180px; background-color: rgb(0, 0, 0, 0.4); border-radius: 10px; overflow: hidden;}
+  .rss_wrap{position: relative; width: 100px; height: 60px; display: flex; align-items: center; justify-content: center;}
+  .rss_mini{display: flex; justify-content: center; align-items: center; padding: 15px; z-index: 1;}
+  .fireworks{position: relative; width: 140px; height: 140px;}
+  .box_dona{display: flex; flex-direction: column; align-items: flex-start; justify-content: space-evenly; width: 100%; max-width: 420px; height: 90%; z-index: 1;}
+  .decs_dona{display: flex;}
+  .font_dona{font-size:26px; font-family: pretendard; font-weight: 800;}
+  .font_sky{color: #00FFFF;}
+  .font_purple{color: #738DFF;}
+  .font_orange{position: relative; font-weight: 900; color: #FF8F4A; text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0px -1px 0 #000, -1px 0px 0 #000, 1px 0px 0 #000, 0px 1px 0 #000; -webkit-text-stroke: 1.5px #000;}
+  .font_white{color: #fff;}
+  #sp_amount{border: none; outline: none; padding: 0; margin: 0; background: transparent;}
+  #user{font-weight: 900; font-weight: 900; text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0px -1px 0 #000, -1px 0px 0 #000, 1px 0px 0 #000, 0px 1px 0 #000; -webkit-text-stroke: 1.5px #000;}
+</style>
+</head>
+
+<body>
+<!-- 블러 없는 알파 50% 팝업 -->    
+<div class="bg_pop">
+  <div class="rss_mini">
+    <img class="rss_simbol" src="" alt="라살라스 후원">
+   </div>
+	<div class="box_dona">
+    <div class="inner_dona">
+      <div class="decs_dona"><p class="font_orange font_dona">라이언스크루0000</p>&nbsp<p class="font_white font_dona">님이</p></div>
+      <div class="decs_dona"><p id="sp_amount" class="font_orange font_dona">100</p>&nbsp;<p class="font_orange font_dona">RP</p>&nbsp;<p class="font_white font_dona">를 후원하셨습니다.</p></div>
+    </div>
+      <!-- <div class="decs_dona"><p id="user" class="font_white font_dona df">가나다라마바사아자차카타파하</p></div>	 -->
+  </div>
+</div>
+<!-- // 블러 없는 알파 50% 팝업 -->
+<!-- 팝업 노출 시 자동재생 오디오 태그 -->  
+  <audio id="voice_lions" autoplay muted><source type="audio/mp3"></audio>
+<!-- //  팝업 노출 시 자동재생 오디오 태그 -->  
+</body>
+<script type="text/javascript">
+// #sp_amount 값에 따라서 오디오가 바뀜
+  document.addEventListener("DOMContentLoaded", function() {
+      const audio = document.getElementById("voice_lions");
+      const spAmount = document.getElementById("sp_amount");
+      const fireworksImg = document.querySelector(".fireworks");
+      const rssSimbol = document.querySelector(".rss_simbol");
+
+      function formatAmountWithCommas() {
+          let amount = parseInt(spAmount.textContent.replace(/,/g, ''));
+          if (!isNaN(amount)) {
+              spAmount.textContent = amount.toLocaleString();
+          }
+      }
+
+      function updateAudioSource() {
+          const amount = parseInt(spAmount.textContent.replace(/,/g, ''), 10);
+          if (amount >= 1000) {
+              audio.src = "./lion_gold.mp3";
+              rssSimbol.src = "./symbol_gold.png";
+          } else {
+              audio.src = "./lion_silver.mp3";
+              rssSimbol.src = "./symbol_silver.png";
+          }
+          audio.muted = false;
+          audio.play().catch(error => console.error("오디오 재생 실패", error)); //지우셔도 됩니다 로컬 확인용 입니다
+      }
+      formatAmountWithCommas();
+      updateAudioSource();
+  });
+</script>
+</html>
